@@ -36,6 +36,30 @@ export const insertNotes = async(title: string, contents: string) => {
     }
 }
 
+export const updateNotes = async(id: number, title: string = "", contents: string = "") => {
+    try {
+        await pool.query(`UPDATE notes SET title = ?, contents = ? WHERE id = ?`, [title, contents, id]
+        );
+
+        return getNotes(id);
+        
+    } catch (error) {
+        throw error
+    }
+}
+
+export const deleteNotes = async(id: number) => {
+    try {
+        const result = await pool.query(`DELETE FROM notes WHERE id = ?`, [id]
+        );
+
+        return result;
+        
+    } catch (error) {
+        throw error
+    }
+}
+
 
 
 
